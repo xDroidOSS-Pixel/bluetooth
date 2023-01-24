@@ -5153,7 +5153,7 @@ public class AdapterService extends Service {
             initFlags.add(String.format("%s=%s", GD_LINK_POLICY_FLAG, "true"));
         }
         if (DeviceConfig.getBoolean(DeviceConfig.NAMESPACE_BLUETOOTH,
-                GATT_ROBUST_CACHING_CLIENT_FLAG, true)) {
+                GATT_ROBUST_CACHING_CLIENT_FLAG, false)) {
             initFlags.add(String.format("%s=%s", GATT_ROBUST_CACHING_CLIENT_FLAG, "true"));
         }
         if (DeviceConfig.getBoolean(DeviceConfig.NAMESPACE_BLUETOOTH,
