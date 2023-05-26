@@ -57,10 +57,13 @@ public class AirPodsUtils {
         }
     }
 
-    public static void setModel(byte[] data) {
+    public static boolean setModel(byte[] data) {
         model = ""+((data[3] >> 4) & 0xF)+(data[3] & 0xF)+((data[4] >> 4) & 0xF)+(data[4] & 0xF);
-        modelPartial = ""+(data[3] & 0xF);
+        if (!AirPodsConstants.Models.contains(model)) {
+            return false;
+        }
         Log.d(TAG, "Model code: "+model);
+        return true;
     }
 
     public static void setModelData(byte[] data) {
@@ -73,13 +76,9 @@ public class AirPodsUtils {
             case "1320": AirPodsGen3.setModelData(data); break;
             case "01420": AirPodsPro.setModelData(data); break;
             case "1420": AirPodsProGen2.setModelData(data); break;
-            //case "X11XX": PowerbeatsPro.setModelData(data); // Need full model code // No Icon yet
-            //case "0520": BeatsX.setModelData(data); // No Icon yet
-            //case "1020": BeatsFlex.setModelData(data); // No Icon yet
-            //case "0620": BeatsSolo3.setModelData(data); // No Icon yet
-            //case "X9XX": BeatsStudio3.setModelData(data); // Need full model code // No Icon yet
-            //case "0320": Powerbeats3.setModelData(data); // No Icon yet
-            default: Generic.setModelData(data); break;
+            //case "01120": PowerbeatsPro.setModelData(data); break; // No Icon yet
+            //case "1120": BeatsStudioBuds.setModelData(data); break; // No Icon yet
+            //case "0320": Powerbeats3.setModelData(data); break; // No Icon yet
         }
     }
 
@@ -99,7 +98,7 @@ public class AirPodsUtils {
             //case "0620": return BeatsSolo3.getModelArguments(); // No Icon yet
             //case "X9XX": return BeatsStudio3.getModelArguments(); // Need full model code // No Icon yet
             //case "0320": return Powerbeats3.getModelArguments(); // No Icon yet
-            default: return Generic.getModelArguments();
+            default: return null;
         }
     }
 
@@ -113,13 +112,9 @@ public class AirPodsUtils {
             case "1320": AirPodsGen3.setModelMetaData(context, mCurrentDevice); break;
             case "01420": AirPodsPro.setModelMetaData(context, mCurrentDevice); break;
             case "1420": AirPodsProGen2.setModelMetaData(context, mCurrentDevice); break;
-            //case "X11XX": PowerbeatsPro.setModelMetaData(context, mCurrentDevice); // Need full model code
-            //case "0520": BeatsX.setModelMetaData(context, mCurrentDevice); // No Icon yet
-            //case "1020": BeatsFlex.setModelMetaData(context, mCurrentDevice); // No Icon yet
-            //case "0620": BeatsSolo3.setModelMetaData(context, mCurrentDevice); // No Icon yet
-            //case "X9XX": BeatsStudio3.setModelMetaData(context, mCurrentDevice); // Need full model code // No Icon yet
-            //case "0320": Powerbeats3.setModelMetaData(context, mCurrentDevice); // No Icon yet
-            default: Generic.setModelMetaData(context, mCurrentDevice); break;
+            //case "01120": PowerbeatsPro.setModelMetaData(context, mCurrentDevice); break; // No Icon yet
+            //case "1120": BeatsStudioBuds.setModelMetaData(context, mCurrentDevice); break; // No Icon yet
+            //case "0320": Powerbeats3.setModelMetaData(context, mCurrentDevice); break; // No Icon yet
         }
     }
 
@@ -139,7 +134,7 @@ public class AirPodsUtils {
             //case "0620": return BeatsSolo3.isModelStateChanged(); // No Icon yet
             //case "X9XX": return BeatsStudio3.isModelStateChanged(); // Need full model code // No Icon yet
             //case "0320": return Powerbeats3.isModelStateChanged(); // No Icon yet
-            default: return false; // Generic.isModelStateChanged();
+            default: return false;
         }
     }
 
